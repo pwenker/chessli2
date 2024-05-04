@@ -4,7 +4,7 @@ emoji: 🏰
 colorFrom: blue
 colorTo: red
 sdk: gradio
-app_file: app.py
+app_file: src/chessli2/app.py
 pinned: True
 ---
 
