@@ -2,10 +2,10 @@
 title: Chessli2
 emoji: 🏰
 colorFrom: blue
-colorTo: orange
+colorTo: red
 sdk: gradio
 app_file: main.py
-pinned: yes
+pinned: True
 ---
 
 
