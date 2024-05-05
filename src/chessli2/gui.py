@@ -7,7 +7,7 @@ import gradio as gr
 import pandas as pd
 from gradio_calendar import Calendar
 
-from chessli2.mistakes import validated_get_mistakes
+from src.chessli2.mistakes import validated_get_mistakes
 
 readme_file = Path("README.md")
 

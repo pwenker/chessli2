@@ -5,7 +5,7 @@ import chess
 import chess.pgn
 import gradio as gr
 
-from chessli2.games import fetch_games
+from src.chessli2.games import fetch_games
 
 
 class Color(Enum):

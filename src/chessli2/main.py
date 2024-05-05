@@ -1,4 +1,4 @@
-from chessli2.gui import demo
+from src.chessli2.gui import demo
 
 
 if __name__ == "__main__":
