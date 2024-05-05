@@ -4,7 +4,7 @@ emoji: 🏰
 colorFrom: blue
 colorTo: red
 sdk: gradio
-app_file: src/chessli2/app.py
+app_file: app.py
 pinned: True
 ---
 
@@ -12,6 +12,11 @@ pinned: True
 # Welcome to Chessli2 🏰
 
 Chessli2 is your **always free** and **open-source** chess trainer 🛡️, designed to elevate your game by allowing you to analyze games, identify mistakes, and sharpen your tactics, all sourced directly from [lichess.org](https://lichess.org/).
+
+## Why a second version?
+
+Incredibly, despite my prolonged absence, I continue to receive heartfelt 💌 thank you notes and eager requests for `chessli`. 
+This overwhelming support has inspired me to develop a sleek new version of Chessli that not only squashes all those pesky bugs 🐛 but also introduces a user-friendly graphical interface. This means no programming experience is required to dive in!
 
 ## Features 🌟
 
@@ -21,6 +26,6 @@ Chessli2 is your **always free** and **open-source** chess trainer 🛡️, desi
 
 Chessli2 is here to support your journey to becoming a chess master. Dive in and start enhancing your skills today! 🚀
 
-## How to
+## How-to
 
 Coming soon...
