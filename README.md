@@ -26,6 +26,6 @@ This overwhelming support has inspired me to develop a sleek new version of Ches
 
 Chessli2 is here to support your journey to becoming a chess master. Dive in and start enhancing your skills today! 🚀
 
-## How-to
+## Quickstart
 
-Coming soon...
+Try it directly out at [Huggingface Spaces](https://pwenker-chessli2.hf.space/).

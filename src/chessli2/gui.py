@@ -20,7 +20,9 @@ nags = {
 
 with gr.Blocks() as demo:
     with gr.Tab("Welcome"):
-        gr.Markdown(readme_file.read_text())
+        readme = readme_file.read_text()
+        gr_readme = readme.split('---')[2].strip()
+        gr.Markdown(gr_readme)
     with gr.Tab("Games & Mistakes"):
         gr.Markdown("Fetch your games and download a CSV with your mistakes")
 
