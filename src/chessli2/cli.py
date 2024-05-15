@@ -72,7 +72,7 @@ def mistakes(
     elif output == Output.pgn:
         print(mistake_pgns)
     elif output == Output.file:
-        print(mistake_csv["value"])
+        print(mistake_csv.get("value", "No mistakes found"))
 
 
 @app.command()
@@ -107,6 +107,7 @@ def puzzles(
         before=before,
         max=max,
         themes_selection=themes,
+        lichess_api_token=lichess_api_token,
         api_name="/get_puzzles",
     )
 
@@ -115,7 +116,7 @@ def puzzles(
     elif output == Output.pgn:
         print(puzzle_pgns)
     elif output == Output.file:
-        print(puzzle_csv["value"])
+        print(puzzle_csv.get("value", "No puzzles found"))
 
 
 if __name__ == "__main__":

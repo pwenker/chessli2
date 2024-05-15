@@ -6,10 +6,10 @@ from chessli2.settings import settings
 
 runner = CliRunner()
 
-sources = ["pwenker/chessli2", "http://localhost:7860"]
+sources = ["pwenker/chessli2"]  # , "http://localhost:7860"]
 
 
-@pytest.mark.parametrize("src", ["http://localhost:7860"])
+@pytest.mark.parametrize("src", sources)
 def test_mistakes_with_options(src):
     result = runner.invoke(
         app,
@@ -38,7 +38,7 @@ def test_mistakes_with_options(src):
     assert result.exit_code == 0
 
 
-@pytest.mark.parametrize("src", ["http://localhost:7860"])
+@pytest.mark.parametrize("src", sources)
 def test_puzzles_with_options(src):
     """
     chessli puzzles --src http://localhost:7860  --user-name pwenker --before 2024-05-14 --max 100 --output file
@@ -54,10 +54,9 @@ def test_puzzles_with_options(src):
             "--before",
             "2024-05-14",
             "--max",
-            '10',
+            10,
             "--output",
             "file",
         ],
     )
-    __import__('pdb').set_trace()
     assert result.exit_code == 0

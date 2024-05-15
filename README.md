@@ -11,12 +11,12 @@ pinned: True
 
 # Welcome to Chessli2 🏰
 
-[Chessli2](https://github.com/pwenker/chessli2) is your **always free** and **open-source** chess trainer 🛡️, designed to elevate your game by allowing you to analyze games, identify mistakes, and sharpen your tactics, all sourced directly from [lichess.org](https://lichess.org/).
+[chessli2](https://github.com/pwenker/chessli2) is your **always free** and **open-source** chess trainer 🛡️, designed to elevate your game by allowing you to analyze games, identify mistakes, and sharpen your tactics, all sourced directly from [lichess.org](https://lichess.org/).
 
 ## Why a second version?
 
-Incredibly, despite my prolonged absence, I continue to receive heartfelt 💌 thank you notes and eager requests for `chessli`. 
-This overwhelming support has inspired me to develop a sleek new version of Chessli that not only squashes all those pesky bugs 🐛 but also introduces a user-friendly graphical interface. This means no programming experience is required to dive in!
+Incredibly, despite my prolonged absence, I continue to receive heartfelt 💌 thank you notes and eager requests for [chessli](https://github.com/pwenker/chessli). 
+This overwhelming support has inspired me to develop a sleek new version of `chessli` that not only squashes all those pesky bugs 🐛 but also introduces a user-friendly graphical interface. This means no programming experience is required to dive in!
 
 ## Features 🌟
 
@@ -29,7 +29,7 @@ Chessli2 is here to support your journey to becoming a chess master. Dive in and
 
 ## Quickstart 🚀
 
-### 👉 Click here to try out the app directly:
+### 👉 Click here to try out the app directly without any setup:
 [**Chessli2**](https://pwenker-chessli2.hf.space/)
 
 ### 🔍 Inspect code at:
@@ -65,12 +65,30 @@ For more details, visit: [Basics - Rye](https://rye-up.com/guide/basics/)
 
 ### Start the App 🌟
 
+> [!NOTE]  
+> If you choose to install `chessli2` without `rye`, or in case you activate the rye shell with `rye shell`, just omit `rye run` for the following commands.
+
 Launch the app using:
 ```
 rye run python src/chessli2/app.py
 ```
 
 Finally, open your browser and visit [http://localhost:7860](http://localhost:7860/) to start practicing!
+
+
+## Programmatic Access
+
+### API endpoints
+Thanks to [Gradio](https://www.gradio.app/), you can find an API documentation for `chessli2` at [Chessli2 API](https://pwenker-chessli2.hf.space/?view=api).
+
+### CLI
+
+There is also a CLI, for usage information type:
+```
+rye run chessli2 --help
+```
+
+For complete usage information of all commands and options, take a look at the CLI documentation at [docs/cli.md](docs/cli.md).
 
 ## FAQ
 
