@@ -5,6 +5,7 @@ colorFrom: blue
 colorTo: red
 sdk: gradio
 app_file: src/chessli2/app.py
+python_version: 3.11
 pinned: True
 ---
 
