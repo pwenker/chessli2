@@ -4,7 +4,7 @@ emoji: 🏰
 colorFrom: blue
 colorTo: red
 sdk: gradio
-app_file: app.py
+app_file: src/chessli/app.py
 pinned: True
 ---
 
@@ -66,7 +66,7 @@ For more details, visit: [Basics - Rye](https://rye-up.com/guide/basics/)
 ### Start the App 🌟
 
 > [!NOTE]  
-> If you choose to install `chessli2` without `rye`, or in case you activate the rye shell with `rye shell`, just omit `rye run` for the following commands.
+> If you choose to install `chessli2` without `rye` just omit `rye run` for the following commands.
 
 Launch the app using:
 ```
@@ -83,7 +83,7 @@ Thanks to [Gradio](https://www.gradio.app/), you can find an API documentation f
 
 ### CLI
 
-There is also a CLI, for usage information type:
+There is also a CLI! 
 ```
 rye run chessli2 --help
 ```
