@@ -11,7 +11,7 @@ pinned: True
 
 # Welcome to Chessli2 🏰
 
-Chessli2 is your **always free** and **open-source** chess trainer 🛡️, designed to elevate your game by allowing you to analyze games, identify mistakes, and sharpen your tactics, all sourced directly from [lichess.org](https://lichess.org/).
+[Chessli2](https://github.com/pwenker/chessli2) is your **always free** and **open-source** chess trainer 🛡️, designed to elevate your game by allowing you to analyze games, identify mistakes, and sharpen your tactics, all sourced directly from [lichess.org](https://lichess.org/).
 
 ## Why a second version?
 
@@ -27,10 +27,50 @@ This overwhelming support has inspired me to develop a sleek new version of Ches
 
 Chessli2 is here to support your journey to becoming a chess master. Dive in and start enhancing your skills today! 🚀
 
-## Quickstart
+## Quickstart 🚀
 
-Try it directly out at [Huggingface Spaces](https://pwenker-chessli2.hf.space/).
+### 👉 Click here to try out the app directly:
+[**Chessli2**](https://pwenker-chessli2.hf.space/)
 
+### 🔍 Inspect code at:
+- **GitHub:** [pwenker/chessli2](https://github.com/pwenker/chessli2)
+- **Hugging Face Spaces:** [pwenker/chessli2](https://huggingface.co/spaces/pwenker/chessli2)
+
+
+## Local Deployment 🏠
+
+### Prerequisites 📋
+
+#### Rye 🌾
+[Install `Rye`](https://rye-up.com/guide/installation/#installing-rye)
+> Rye is a comprehensive tool designed for Python developers. It simplifies your workflow by managing Python installations and dependencies. Simply install Rye, and it takes care of the rest.
+
+### Set-Up 🛠️
+
+Clone the repository, e.g. with:
+```
+git clone https://github.com/pwenker/chessli2.git
+```
+Navigate to the directory:
+```
+cd chessli2
+```
+And execute:
+```
+rye sync
+```
+This creates a virtual environment in `.venv` and synchronizes the repo.
+
+For more details, visit: [Basics - Rye](https://rye-up.com/guide/basics/)
+
+### Start the App 🌟
+
+Launch the app using:
+```
+rye run python src/chessli2/app.py
+```
+
+Finally, open your browser and visit [http://localhost:7860](http://localhost:7860/) to start practicing!
 
 ## FAQ
 

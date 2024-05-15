@@ -13,12 +13,13 @@ dependencies = [
     "gradio_calendar>=0.0.4",
     "gradio>=4.29.0",
     "tabulate>=0.9.0",
+    "typer>=0.12.3",
 ]
 readme = "README.md"
-requires-python = ">= 3.10"
+requires-python = ">= 3.11"
 
 [project.scripts]
-chessli2 = "chessli2.main:app"
+chessli2 = "chessli2.cli:app"
 
 [build-system]
 requires = ["hatchling"]
@@ -26,7 +27,10 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = []
+dev-dependencies = [
+    "pytest>=8.2.0",
+    "pytest-sugar>=1.0.0",
+]
 
 [tool.hatch.metadata]
 allow-direct-references = true
