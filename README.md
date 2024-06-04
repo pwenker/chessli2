@@ -28,7 +28,7 @@ Chessli2 is here to support your journey to becoming a chess master. Dive in and
 
 ### 🌟 Best 1000 Puzzles for each Theme 🧩
 
-📚 [Overview and links](https://github.com/pwenker/chessli2/docs/best_1000_puzzles_by_theme.md) 🔗
+📚 [Overview and links](https://github.com/pwenker/chessli2/blob/main/docs/best_1000_puzzles_by_theme.md) 🔗
 
 ## Local Deployment 🏠
 
