@@ -1,15 +1,3 @@
----
-title: Chessli2
-emoji: 🏰
-colorFrom: blue
-colorTo: red
-sdk: gradio
-app_file: src/chessli2/app.py
-python_version: 3.11
-pinned: True
----
-
-
 # Welcome to Chessli2 🏰
 
 [chessli2](https://github.com/pwenker/chessli2) is your **always free** and **open-source** chess trainer 🛡️, designed to elevate your game by allowing you to analyze games, identify mistakes, and sharpen your tactics, all sourced directly from [lichess.org](https://lichess.org/).
@@ -33,10 +21,14 @@ Chessli2 is here to support your journey to becoming a chess master. Dive in and
 ### 👉 Click here to try out the app directly without any setup:
 [**Chessli2**](https://pwenker-chessli2.hf.space/)
 
+
 ### 🔍 Inspect code at:
 - **GitHub:** [pwenker/chessli2](https://github.com/pwenker/chessli2)
 - **Hugging Face Spaces:** [pwenker/chessli2](https://huggingface.co/spaces/pwenker/chessli2)
 
+### 🌟 Best 1000 Puzzles for each Theme 🧩
+
+📚 [Overview and links](https://github.com/pwenker/chessli2/docs/best_1000_puzzles_by_theme.md) 🔗
 
 ## Local Deployment 🏠
 
@@ -130,8 +122,8 @@ Finally, you can import the CSV file into Anki.
 4. In the main Anki window, go to the menu bar and click on `File`.
 5. Select `Import...` from the dropdown menu.
 6. Browse to the location of your CSV file, select it, and click `Open`.
-7. Anki will open a dialog box asking how you want to import the CSV file. Select the `Chess-2.0` note type.
-8. Make sure it reads: "Field 1 of file is: mapped to PGN" 
+7. Anki will open a dialog box asking how you want to import the CSV file. Select the `Chess-2.0` note type. And select "Fields separated by: Comma".
+8. Make sure it reads: "Field 1 of file is: mapped to PGN" (For the puzzles you can map the second field to "Tags")
 9. Click the `Import` button. Anki will process the file and add the new cards to the selected deck.
 10. After importing, it’s a good idea to review a few cards to ensure they were imported correctly. You can do this by browsing the deck or starting a study session.
 11. Pat yourself on the back! You did it! 🎉

@@ -1,9 +1,8 @@
 import csv
-from io import StringIO
-
-import chess
-import gradio as gr
 import pandas as pd
+import chess
+from io import StringIO
+import gradio as gr
 
 
 def write_pgn_to_csv(pgns, filename="pgns.csv"):
@@ -23,6 +22,15 @@ def write_pgn_to_csv(pgns, filename="pgns.csv"):
         for pgn in pgns:
             writer.writerow([pgn])
 
+def write_pgn_to_csv_with_tags(pgns, filename="pgns.csv"):
+    # Open the file in write mode
+    with open(filename, mode="w", newline="", encoding="utf-8") as file:
+        # Create a CSV writer object
+        writer = csv.writer(file)
+
+        # Write each PGN as a new row
+        for pgn, tags in pgns:
+            writer.writerow([pgn, tags])
 
 def mistake_pgns_to_md(mistake_pgns):
     gr.Info("Visualizing mistakes as markdown table 📉📝")
@@ -47,7 +55,7 @@ def mistake_pgns_to_md(mistake_pgns):
             "White Elo": headers["WhiteElo"],
             "Black Elo": headers["BlackElo"],
             "Opening": headers["Opening"],
-            "Time Control": headers["TimeControl"],
+            "Time Control": headers['TimeControl'],
             "Mistake ❌": mistake,
             "Correct Variation ✅": correct_variation,
         }

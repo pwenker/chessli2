@@ -1,15 +1,18 @@
-import datetime
 from collections import Counter
 
 import berserk
 import chess
 import gradio as gr
+import polars as pl
+from chess.pgn import Headers
 
 from chessli2.settings import get_client
-from chessli2.writer import write_pgn_to_csv
+from chessli2.writer import write_pgn_to_csv_with_tags
+
+puzzle_db_csv = "lichess_db_puzzles.csv"
 
 
-def puzzle_pgn(puzzle_activity):
+def generate_puzzle_history_pgn(puzzle_activity):
     game = puzzle_activity["game"]
     puzzle = puzzle_activity["puzzle"]
     themes = puzzle["themes"]
@@ -41,7 +44,7 @@ def puzzle_pgn(puzzle_activity):
     return pgn_string, themes
 
 
-def get_puzzles(before, max, themes_selection, lichess_api_token):
+def get_puzzle_history(before, max, themes_selection, lichess_api_token):
     client, lichess_api_token = get_client(lichess_api_token=lichess_api_token)
 
     puzzle_activity = client.puzzles.get_puzzle_activity(
@@ -55,12 +58,14 @@ def get_puzzles(before, max, themes_selection, lichess_api_token):
 
     try:
         for pa in puzzle_activity:
-            ppgn, themes = puzzle_pgn(client.puzzles.get(pa["puzzle"]["id"]))
+            ppgn, themes = generate_puzzle_history_pgn(
+                client.puzzles.get(pa["puzzle"]["id"])
+            )
             # check if any of the selected themes are in the puzzle themes
             if not set(themes_selection).isdisjoint(themes):
                 n_puzzles += 1
                 theme_counter.update(themes)
-                puzzle_pgns.append(ppgn)
+                puzzle_pgns.append((ppgn, " ".join(themes)))
             else:
                 skipped_puzzles += 1
             download_info = (
@@ -72,7 +77,7 @@ def get_puzzles(before, max, themes_selection, lichess_api_token):
 
         if n_puzzles > 0:
             filename = "puzzles.csv"
-            write_pgn_to_csv(puzzle_pgns, filename=filename)
+            write_pgn_to_csv_with_tags(puzzle_pgns, filename=filename)
             download_info = f"Download CSV file with PGNs of {n_puzzles} puzzles"
             yield puzzle_pgns, theme_counter, gr.DownloadButton(
                 value=filename, label=download_info, variant="primary"
@@ -97,40 +102,111 @@ def get_puzzles(before, max, themes_selection, lichess_api_token):
         )
 
 
-def create_markdown_table(entries):
-    if not entries:
-        return "No data provided"
+def generate_puzzle_db_pgn(id, fen, moves, themes):
+    board = chess.Board(fen)
 
-    if not isinstance(entries, list) or not all(
-        isinstance(item, dict) for item in entries
-    ):
-        return "Invalid input format. Please provide a list of dictionaries."
+    move_list = moves.split()
+    for move in move_list:
+        board.push(chess.Move.from_uci(move))
 
-    # Extract headers from the first dictionary
-    headers = entries[0].keys()
+    game = chess.pgn.Game.from_board(board)
+    game.headers = Headers(
+        {
+            "Event": "Puzzle",
+            "Site": f"https://www.lichess.org/training/{id}",
+            "Themes": themes,
+            "FEN": fen,
+            "SetUp": "1",
+        }
+    )
+    exporter = chess.pgn.StringExporter(headers=True, variations=True, comments=True)
+    pgn_string = game.accept(exporter)
 
-    # Create the header row
-    header_row = "| " + " | ".join(headers) + " |"
+    return pgn_string
 
-    # Create the separator row
-    separator_row = "| " + " | ".join(["---"] * len(headers)) + " |"
 
-    # Initialize the table with the header and separator
-    table = [header_row, separator_row]
+def get_puzzles_from_db(
+    themes=None,
+    popularity_range=None,
+    rating_range=None,
+    nb_plays_range=None,
+    opening_tags=None,
+    max=1000,
+    progress=gr.Progress(),
+):
+    """
+    Filters the puzzles based on the provided criteria.
 
-    # Fill in the data rows
-    for entry in entries:
-        row = []
-        for header in headers:
-            if header in entry:
-                value = entry[header]
-                if isinstance(value, datetime.datetime):
-                    value = value.strftime("%Y-%m-%d %H:%M:%S %Z")
-                elif isinstance(value, list):
-                    value = ", ".join(map(str, value))
-                row.append(str(value))
-            else:
-                row.append("N/A")
-        table.append("| " + " | ".join(row) + " |")
+    Parameters:
+    - df (pl.DataFrame): The Polars DataFrame containing the puzzle data.
+    - themes (list of str): List of themes to filter by.
+    - popularity_range (tuple of int): Tuple containing the min and max popularity scores.
+    - rating_range (tuple of int): Tuple containing the min and max ratings.
+    - nb_plays_range (tuple of int): Tuple containing the min and max number of plays.
+    - opening_tags (list of str): List of opening tags to filter by.
 
-    return "\n".join(table)
+    Returns:
+    - pl.DataFrame: The filtered DataFrame.
+    """
+    df = pl.scan_csv(puzzle_db_csv)
+
+    if popularity_range:
+        min_popularity, max_popularity = popularity_range
+        df = df.filter(
+            (pl.col("Popularity") >= min_popularity)
+            & (pl.col("Popularity") <= max_popularity)
+        )
+
+    if rating_range:
+        min_rating, max_rating = rating_range
+        df = df.filter(
+            (pl.col("Rating") >= min_rating) & (pl.col("Rating") <= max_rating)
+        )
+
+    if nb_plays_range:
+        min_nb_plays, max_nb_plays = nb_plays_range
+        df = df.filter(
+            (pl.col("NbPlays") >= min_nb_plays) & (pl.col("NbPlays") <= max_nb_plays)
+        )
+
+    if themes:
+        df = df.filter(pl.col("Themes").str.contains("|".join(themes)))
+
+    if opening_tags:
+        df = df.filter(pl.col("OpeningTags").str.contains("|".join(opening_tags)))
+
+    # Filter the puzzles by `max`, using the puzzles with the highest popularity scores
+    # If two or more puzzles have the same popularity score, sort by the nb_plays column
+    df = df.sort("Popularity", "NbPlays", descending=True).limit(max)
+    df = df.collect()
+
+    n_puzzles = len(df)
+
+    if n_puzzles > 0:
+        puzzle_pgns = []
+        for pzl_row in progress.tqdm(
+            df.iter_rows(), total=n_puzzles, desc="Fetching puzzles..."
+        ):
+            id = pzl_row[0]
+            themes = pzl_row[7]
+            opening_tags = pzl_row[9]
+            fen = pzl_row[1]
+            moves = pzl_row[2]
+            pgn = generate_puzzle_db_pgn(id, fen, moves, themes)
+            puzzle_pgns.append((pgn, themes))
+
+        filename = "puzzles_db.csv"
+        write_pgn_to_csv_with_tags(puzzle_pgns, filename=filename)
+        download_info = f"Download CSV file with PGNs of {n_puzzles} puzzles"
+        return df, gr.DownloadButton(
+            value=filename,
+            label=download_info,
+            variant="primary",
+            visible=True,
+        )
+    else:
+        return df, gr.DownloadButton(
+            label="No puzzles found. Please adjust the filters.",
+            variant="secondary",
+            visible=True,
+        )
