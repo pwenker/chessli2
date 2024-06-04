@@ -16,8 +16,7 @@ puzzle_themes_file = Path("docs/puzzle_themes.md")
 with gr.Blocks(title="Chessli2") as chessli2_gradio_app:
     with gr.Tab("Welcome"):
         readme = readme_file.read_text()
-        gr_readme = readme.split("---")[2].strip()
-        gr.Markdown(gr_readme)
+        gr.Markdown(readme)
 
     with gr.Tab("Games & Mistakes"):
         gr.Markdown(
@@ -26,7 +25,7 @@ with gr.Blocks(title="Chessli2") as chessli2_gradio_app:
             
             Here you can fetch your games and mistakes from your **game history** 🎮. You can filter by time control, type of mistakes, and date range.
             
-            When you are happy, you can download a CSV file with the selected mistakes' PGNs to practice them with Anki 📥."""
+            When you are happy, you can download a CSV file with the selected mistakes' PGNs to practice them with Anki 📥.""",
         )
 
         user_name = gr.Textbox(

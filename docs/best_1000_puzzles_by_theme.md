@@ -1,3 +1,12 @@
+# 🏆 Best 1000 Puzzles by Theme 🧩
+
+Below you find the best (= highest popularity score, ordered by number of plays) 1000 puzzles for each of the [available themes](https://lichess.org/training/themes) 🎯, sourced from the [lichess puzzles database](https://database.lichess.org/#puzzles) 📊.
+
+The CSV files contain two columns - the PGN of the puzzle, and the corresponding tags 🏷️ - and are compatible with the [Anki-Chess-2.0](https://github.com/TowelSniffer/Anki-Chess-2.0) template 🗂️.
+
+If you want to generate your own puzzles, filtered by popularity, rating, number of plays and puzzle themes, you can do so within the "Puzzle Database" tab of `chessli2` ♟️.
+
+
 | Name                    | Description                                                                                                         | Link                                                                                                      |
 |-------------------------|---------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
 | Advanced pawn           | One of your pawns is deep into the opponent position, maybe threatening to promote.                                 | [Link](https://github.com/pwenker/chessli2/blob/main/puzzles/advancedPawn.csv)                                      |
