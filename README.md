@@ -102,7 +102,7 @@ To acquire a personal API token for the Lichess platform, simply follow these st
 
 🚨 **Important**: If your token is ever compromised or no longer needed, revoke it immediately to secure your account.
 
-### 📚 How to Get Anki Cards from My Mistakes?
+### 📚 How to Get Anki Cards from My Mistakes or Puzzles?
 
 #### 📄 Create a CSV File
 - After you've fetched your mistakes with `chessli2`, a "Download CSV" button will appear.  
